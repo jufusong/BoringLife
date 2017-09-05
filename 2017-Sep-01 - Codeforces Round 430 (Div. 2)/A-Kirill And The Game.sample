@@ -1,0 +1,8 @@
+-- Example 0
+1 10 1 10 1
+--
+YES
+-- Example 1
+1 5 6 10 1
+--
+NO
