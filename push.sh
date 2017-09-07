@@ -1,4 +1,4 @@
-find . ! -path "./.git/*" -type f \( -name "*.cc" -o -name "*.sample" \) | while read LINE
+find . ! -path "./.git/*" -type f \( -name "*.cc" -o -name "*.sample" -o -name "*.org" \) | while read LINE
 do
     git add "${LINE}"
 done
