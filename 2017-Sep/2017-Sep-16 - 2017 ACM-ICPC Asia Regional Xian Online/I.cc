@@ -6,16 +6,14 @@ const int N = 2000005;
 const int MXB = 938;
 struct BS {
   int a[MXB];
-  BS() {
-    memset(a, 0, sizeof(int) * MXB);
-  };
+  BS() { memset(a, 0, sizeof(int) * MXB); };
 
   void set(int p) {
     int x = p / 32, y = p % 32;
     a[x] |= (1 << y);
   }
 
-  void ex(BS* o) {
+  void ex(BS *o) {
     for (int i = 0; i < MXB; i++) {
       a[i] &= o->a[i];
     }
@@ -38,14 +36,15 @@ struct BS {
 
 struct Trie {
   vector<vector<int>> ch;
-  vector<BS*> b;
+  vector<BS *> b;
   void init() {
     ch = vector<vector<int>>(1, vector<int>(26, 0));
     if (b.empty()) {
-      b = vector<BS*>(2000001, 0);
+      b = vector<BS *>(2000001, 0);
     } else {
       for (int i = 0; i <= 2000000; i++) {
-        if (b[i]) delete b[i];
+        if (b[i])
+          delete b[i];
         b[i] = 0;
       }
     }
@@ -64,11 +63,12 @@ struct Trie {
       b[now] = new BS();
     }
   }
-  void process(string& s, int val) {
+  void process(string &s, int val) {
     int now = 0;
     for (int i = 0; i < (int)s.size(); i++) {
       int c = s[i] - 'a';
-      if (!ch[now][c]) return;
+      if (!ch[now][c])
+        return;
       now = ch[now][c];
       if (b[now]) {
         b[now]->set(val);
@@ -76,7 +76,7 @@ struct Trie {
     }
   }
 
-  BS* find(string& s) {
+  BS *find(string &s) {
     int now = 0;
     for (int i = 0; i < (int)s.size(); i++) {
       int c = s[i] - 'a';
@@ -84,7 +84,7 @@ struct Trie {
     }
     return b[now];
   }
-}trie[4];
+} trie[4];
 
 char s[5][N];
 
@@ -118,9 +118,10 @@ int main(int argc, char *argv[]) {
         }
       }
     }
-    sort(a1.begin(), a1.end(), [](const pair<string, int>& x, const pair<string, int>& y){
-        return x.first.size() < y.first.size();
-      });
+    sort(a1.begin(), a1.end(),
+         [](const pair<string, int> &x, const pair<string, int> &y) {
+           return x.first.size() < y.first.size();
+         });
     vector<int> c(Q), d(a1.size());
     for (int i = 0; i < (int)a1.size(); i++) {
       c[a1[i].second] = i;
