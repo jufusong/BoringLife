@@ -4,3 +4,8 @@
     1. [[http://codeforces.com/contest/852/problem/I][852 I Dating]], Solution: [[http://codeforces.com/contest/852/submission/30179985]]
 *** Resources
     [[http://codeforces.com/blog/entry/43230][Mo's Algorithm on Trees Tutorial]]
+
+* String
+** Suffix Automaton
+*** Resources
+    [[https://huntzhan.org/suffix-automaton-tutorial/][Suffix Automaton Tutorial]]
