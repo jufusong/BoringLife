@@ -2,41 +2,52 @@
 
 using namespace std;
 
+const int N = 1 << 6;
+
+double a[N][N], b[N][N][N], c[N][N][N];
+
+void dfs(int l, int r, int d) {
+  if (l == r) {
+    b[l][r][l] = 0;
+    c[l][r][l] = 1;
+  } else {
+    int m = (l + r) / 2;
+    dfs(l, m, d - 1);
+    dfs(m + 1, r, d - 1);
+    for (int i = l; i <= r; i++) {
+      if (i <= m) {
+        for (int j = m + 1; j <= r; j++) {
+          c[l][r][i] += c[l][m][i] * c[m + 1][r][j] * a[i][j];
+        }
+        for (int j = m + 1; j <= r; j++) {
+          b[l][r][i] = max(b[l][r][i], b[l][m][i] + b[m + 1][r][j] + (1 << d) * c[l][r][i]);
+        }
+      } else {
+        for (int j = l; j <= m; j++) {
+          c[l][r][i] += c[m + 1][r][i] * c[l][m][j] * a[i][j];
+        }
+        for (int j = l; j <= m; j++) {
+          b[l][r][i] = max(b[l][r][i], b[m + 1][r][i] + b[l][m][j] + (1 << d) * c[l][r][i]);
+        }
+      }
+    }
+  }
+}
+
 int main(int argc, char *argv[]) {
   int n;
   cin >> n;
-  vector<vector<double>> a(1 << n, vector<double>(1 << n));
   for (int i = 0; i < (1 << n); i++) {
     for (int j = 0; j < (1 << n); j++) {
       cin >> a[i][j];
       a[i][j] /= 100;
     }
   }
-  vector<vector<double>> dp(n + 1, vector<double>(1 << n));
-  auto b = dp;
+  double mx = 0;
+  dfs(0, (1 << n) - 1, n - 1);
   for (int i = 0; i < (1 << n); i++) {
-    dp[0][i] = 1.0;
+    mx = max(mx, b[0][(1 << n) - 1][i]);
   }
-  for (int i = 1; i <= n; i++) {
-    for (int j = 0; j < (1 << n); j++) {
-      for (int k = 0; k < (1 << n); k++) {
-        if ((k >> (i - 1)) != (j >> (i - 1)) && (k >> i) == (j >> i)) {
-          dp[i][j] += dp[i - 1][j] * dp[i - 1][k] * a[j][k];
-        }
-      }
-      b[i][j] = b[i - 1][j] + dp[i][j] * (1 << (i - 1));
-    }
-  }
-  double ans = 0;
-  set<int> se;
-  for (int i = n, j = 1; i >= 1; i--, j *= 2) {
-    vector<int> c;
-    for (int k = 0; k < (1 << n); k++) {
-      if (!se.count(k)) c.push_back(k);
-    }
-    sort(c.begin(), c.end(), [&b, &i](int x, int y) {
-        return b[i][x] < b[i][y];
-      });
-  }
+  printf("%.10f\n", mx);
   return 0;
 }
