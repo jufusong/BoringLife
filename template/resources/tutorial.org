@@ -1,10 +1,21 @@
 * Data Structure
+** Mo's Algorithm
 ** Mo's Algorithm on Trees
 *** Problem
-    1. [[http://codeforces.com/contest/852/problem/I][852 I Dating]], Solution: [[http://codeforces.com/contest/852/submission/30179985]]
+    1. [[http://codeforces.com/contest/852/problem/I][852 I. Dating]], Solution: [[http://codeforces.com/contest/852/submission/30179985]]
 *** Resources
     [[http://codeforces.com/blog/entry/43230][Mo's Algorithm on Trees Tutorial]]
-
+** Auxiliary Tree
+*** Problem
+    1. [[http://codeforces.com/contest/860/problem/E][860 E. Arkady and a Nobody-men]], Solution: [[http://codeforces.com/contest/860/submission/30806976]]
+    2. [[http://codeforces.com/contest/613/problem/D][613 D. Kingdom and its Cities]], Solution: [[http://codeforces.com/contest/613/submission/30829441]]
+*** Resources
+** Centroid Decomposition
+** Heavy Light Decomposition
+** DSU on Tree
+** Segment Tree
+** Dancing Links X
+** Treap
 * String
 ** Suffix Automaton
 *** Resources
