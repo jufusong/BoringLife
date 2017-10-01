@@ -1,0 +1,24 @@
+-- Example 0
+4
+FSSF
+--
+NO
+
+-- Example 1
+2
+SF
+--
+YES
+
+-- Example 2
+10
+FFFFFFFFFF
+--
+NO
+
+-- Example 3
+10
+SSFFSFFSFF
+--
+YES
+
