@@ -1,23 +1,49 @@
 * Data Structure
-** Mo's Algorithm
-** Mo's Algorithm on Trees
-*** Problem
-    1. [[http://codeforces.com/contest/852/problem/I][852 I. Dating]], Solution: [[http://codeforces.com/contest/852/submission/30179985]]
-*** Resources
-    [[http://codeforces.com/blog/entry/43230][Mo's Algorithm on Trees Tutorial]]
-** Auxiliary Tree
+** DONE Auxiliary Tree
 *** Problem
     1. [[http://codeforces.com/contest/860/problem/E][860 E. Arkady and a Nobody-men]], Solution: [[http://codeforces.com/contest/860/submission/30806976]]
     2. [[http://codeforces.com/contest/613/problem/D][613 D. Kingdom and its Cities]], Solution: [[http://codeforces.com/contest/613/submission/30829441]]
 *** Resources
-** Centroid Decomposition
-** Heavy Light Decomposition
-** DSU on Tree
-** Segment Tree
-** Dancing Links X
-** Treap
+** TODO Centroid Decomposition
+** TODO Dancing Links X
+** TODO DSU on Tree
+*** Resources
+    [[http://codeforces.com/blog/entry/44351]]
+** TODO Heavy Light Decomposition
+** DONE Mo's Algorithm
+*** Problem
+    1. [[http://codeforces.com/contest/617/problem/E][617 E. XOR and Favorite Number]], Solution [[http://codeforces.com/contest/617/submission/29701104]]
+** DONE Mo's Algorithm on Trees
+*** Problem
+    1. [[http://codeforces.com/contest/852/problem/I][852 I. Dating]], Solution: [[http://codeforces.com/contest/852/submission/30179985]]
+*** Resources
+    [[http://codeforces.com/blog/entry/43230][Mo's Algorithm on Trees Tutorial]]
+** TODO Segment Tree
+** DONE Treap
+*** Problem
+    1. [[http://poj.org/problem?id=1442][POJ 1442 Black Box]], Solution: [[http://paste.ubuntu.com/25660299/]]
+    2. [[http://poj.org/problem?id=3468][POJ 3468 A Simple Problem with Integers]], Solution: [[http://paste.ubuntu.com/25660335/]]
+    3. [[http://codeforces.com/contest/809/problem/D][809 D. Hitchhiking in the Baltic States]], Solution: [[http://codeforces.com/contest/809/submission/29624080]]
+    4. [[http://codeforces.com/contest/702/problem/F][702 F. T-Shirts]]  Solution: [[http://codeforces.com/contest/702/submission/29641689]]
+* Graph
+* Math
+** TODO Fast Fourier Transform
+*** Resources
+   [[http://blog.miskcoo.com/2015/04/polynomial-multiplication-and-fast-fourier-transform]]
+   [[http://www.ruanyifeng.com/blog/2012/09/imaginary_number.html]]
+** TODO Fast Number Theoretic Transform
+** DONE Fast Walsh-Hadamard Transform
+*** Problem
+    1. [[http://codeforces.com/contest/850/problem/E][850 E. Random Elections]], Solution: [[http://codeforces.com/contest/850/submission/30940146]]
+*** Resources
+    [[https://en.wikipedia.org/wiki/Fourier_transform_on_finite_groups]]
+    [[https://apps.topcoder.com/wiki/display/tc/SRM+518]]
+    [[http://picks.logdown.com/posts/179290-fast-walsh-hadamard-transform]]
+** TODO Gaussian Elimination
 * String
-** Suffix Automaton
+** TODO Suffix Automaton
 *** Resources
     [[https://huntzhan.org/suffix-automaton-tutorial/][Suffix Automaton Tutorial]]
-
+** TODO Suffix Array
+** TODO Aho–Corasick
+** TODO Palindromic Tree

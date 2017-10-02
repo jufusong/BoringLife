@@ -36,24 +36,3 @@ void IFWT(vector<int> &a) {
         // or  : a[i + j + d] = y - x;
       }
 }
-
-int main(int argc, char *argv[]) {
-  int n;
-  string s;
-  cin >> n >> s;
-  vector<int> a(1 << n);
-  for (int i = 0; i < 1 << n; i++) {
-    a[i] = s[i] - '0';
-  }
-  FWT(a);
-  for (int i = 0; i < 1 << n; i++) {
-    a[i] = (ll)a[i] * a[i] % mod;
-  }
-  IFWT(a);
-  ll ans = 0;
-  for (int i = 0; i < 1 << n; i++) {
-    ans = (ans + (ll)(1 << (n - __builtin_popcount(i))) * a[i]) % mod;
-  }
-  cout << ans * 3 % mod << endl;
-  return 0;
-}
