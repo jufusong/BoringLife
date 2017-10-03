@@ -11,8 +11,8 @@ int inverse(int x) {
 
 void FWT(vector<int> &a) {
   int n = a.size();
-  for (int d = 1; d < n; d <<= 1)
-    for (int m = d << 1, i = 0; i < n; i += m)
+  for (int d = 1; d < n; d <<= 1) {
+    for (int m = d << 1, i = 0; i < n; i += m) {
       for (int j = 0; j < d; j++) {
         int x = a[i + j], y = a[i + j + d];
         a[i + j] = (x + y) % mod, a[i + j + d] = (x - y + mod) % mod;
@@ -20,13 +20,15 @@ void FWT(vector<int> &a) {
         // and : a[i + j] = x + y;
         // or  : a[i + j + d] = x + y;
       }
+    }
+  }
 }
 
 void IFWT(vector<int> &a) {
   int n = a.size();
   int inv2 = inverse(2);
-  for (int d = 1; d < n; d <<= 1)
-    for (int m = d << 1, i = 0; i < n; i += m)
+  for (int d = 1; d < n; d <<= 1) {
+    for (int m = d << 1, i = 0; i < n; i += m) {
       for (int j = 0; j < d; j++) {
         int x = a[i + j], y = a[i + j + d];
         a[i + j] = 1LL * (x + y) * inv2 % mod;
@@ -35,4 +37,6 @@ void IFWT(vector<int> &a) {
         // and : a[i + j] = x - y;
         // or  : a[i + j + d] = y - x;
       }
+    }
+  }
 }

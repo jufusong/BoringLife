@@ -4,9 +4,13 @@
     1. [[http://codeforces.com/contest/860/problem/E][860 E. Arkady and a Nobody-men]], Solution: [[http://codeforces.com/contest/860/submission/30806976]]
     2. [[http://codeforces.com/contest/613/problem/D][613 D. Kingdom and its Cities]], Solution: [[http://codeforces.com/contest/613/submission/30829441]]
 *** Resources
-** TODO Centroid Decomposition
+** DONE Centroid Decomposition
+*** Problem
+    1. [[http://codeforces.com/contest/716/problem/E][716 E. Digit Tree]], Solution: [[http://codeforces.com/contest/716/submission/30961390]]
 ** TODO Dancing Links X
-** TODO DSU on Tree
+** DONE DSU on Tree
+*** Problem
+    1. [[http://codeforces.com/contest/600/problem/E][600 E. Lomsat gelral]], Solution: [[http://codeforces.com/contest/600/submission/30959398]]
 *** Resources
     [[http://codeforces.com/blog/entry/44351]]
 ** TODO Heavy Light Decomposition
@@ -21,8 +25,8 @@
 ** TODO Segment Tree
 ** DONE Treap
 *** Problem
-    1. [[http://poj.org/problem?id=1442][POJ 1442 Black Box]], Solution: [[http://paste.ubuntu.com/25660299/]]
-    2. [[http://poj.org/problem?id=3468][POJ 3468 A Simple Problem with Integers]], Solution: [[http://paste.ubuntu.com/25660335/]]
+    1. [[http://poj.org/problem?id=1442][POJ 1442 Black Box]], Solution: [[https://ideone.com/68gzY0]]
+    2. [[http://poj.org/problem?id=3468][POJ 3468 A Simple Problem with Integers]], Solution: [[https://ideone.com/zHYBdK]]
     3. [[http://codeforces.com/contest/809/problem/D][809 D. Hitchhiking in the Baltic States]], Solution: [[http://codeforces.com/contest/809/submission/29624080]]
     4. [[http://codeforces.com/contest/702/problem/F][702 F. T-Shirts]]  Solution: [[http://codeforces.com/contest/702/submission/29641689]]
 * Graph
