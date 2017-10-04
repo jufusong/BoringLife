@@ -1,0 +1,16 @@
+-- Example 0
+2 4
+ABDC
+ABDC
+--
+3
+2 1
+
+-- Example 1
+2 6
+ABCCBA
+ABCCBA
+--
+1
+2 6
+

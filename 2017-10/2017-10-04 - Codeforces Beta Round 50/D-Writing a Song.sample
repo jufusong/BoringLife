@@ -1,0 +1,18 @@
+-- Example 0
+5 2
+aba
+101
+--
+ababa
+-- Example 1
+5 2
+a
+10001
+--
+abbba
+-- Example 2
+6 2
+abba
+101
+--
+No solution

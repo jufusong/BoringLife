@@ -2,6 +2,6 @@ find . ! -path "./.git/*" -type f \( -name "*.cc" -o -name "*.cpp" -o -name "*.s
 do
     git add "${LINE}"
 done
-git add push.sh
+git add -u
 git commit -m 'auto commit'
 git push
