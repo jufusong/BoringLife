@@ -1,0 +1,15 @@
+-- Example 0
+12 30 45 3 11
+--
+NO
+
+-- Example 1
+12 0 1 12 1
+--
+YES
+
+-- Example 2
+3 47 0 4 9
+--
+YES
+

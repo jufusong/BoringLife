@@ -23,12 +23,22 @@
 *** Resources
     [[http://codeforces.com/blog/entry/43230][Mo's Algorithm on Trees Tutorial]]
 ** TODO Segment Tree
+*** Problem
+    1. [[http://codeforces.com/contest/258/problem/E][258 E. Little Elephant and Tree]], Solution: [[http://codeforces.com/contest/258/submission/31117523]]
+       1. modify: range add, range subtract
+       2. query : count the number of minumum element
 ** DONE Treap
 *** Problem
     1. [[http://poj.org/problem?id=1442][POJ 1442 Black Box]], Solution: [[https://ideone.com/68gzY0]]
     2. [[http://poj.org/problem?id=3468][POJ 3468 A Simple Problem with Integers]], Solution: [[https://ideone.com/zHYBdK]]
     3. [[http://codeforces.com/contest/809/problem/D][809 D. Hitchhiking in the Baltic States]], Solution: [[http://codeforces.com/contest/809/submission/29624080]]
     4. [[http://codeforces.com/contest/702/problem/F][702 F. T-Shirts]]  Solution: [[http://codeforces.com/contest/702/submission/29641689]]
+* Dynamic Programming
+** Divide and Conquer Optimization
+*** Problem
+    1. [[http://codeforces.com/contest/868/problem/F][868 F. Yet Another Minimization Problem]], Solution: [[http://codeforces.com/contest/868/submission/31104056]]
+** Resources
+   [[http://codeforces.com/blog/entry/8219]]
 * Graph
 * Math
 ** TODO Fast Fourier Transform
@@ -44,6 +54,7 @@
     [[https://apps.topcoder.com/wiki/display/tc/SRM+518]]
     [[http://picks.logdown.com/posts/179290-fast-walsh-hadamard-transform]]
 ** TODO Gaussian Elimination
+** TODO Mobius
 * String
 ** TODO Suffix Automaton
 *** Resources
