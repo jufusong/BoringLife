@@ -2,53 +2,80 @@
 
 using namespace std;
 
-class AcyclicOrientation {
-public:
-  int count(int n, vector<int> u, vector<int> v) {
-    int mod2 = (u.empty() ? 1 : 0);
-    vector<vector<int>> g(n);
-    for (int i = 0; i < u.size(); i++) {
-      g[u[i]].push_back(v[i]);
-      g[v[i]].push_back(u[i]);
+const int N = 2001;
+
+vector<int> g[N];
+vector<vector<int>> dis;
+bool vis[N];
+set<int> se;
+vector<int> ne;
+int n;
+
+void bfs(int u, vector<int>& dis) {
+  queue<int> q;
+  dis[u] = 0;
+  q.push(u);
+  while (!q.empty()) {
+    int u = q.front();
+    q.pop();
+    for (auto v : g[u]) {
+      if (dis[v] == -1) {
+        dis[v] = dis[u] + 1;
+        q.push(v);
+      }
     }
-    vector<int> a(n, -1);
-    bool flag = true;
-    function<void(int, int)> dfs = [&](int u, int fa) {
-      for (auto v : g[u]) {
-        if (v != fa) {
-          if (a[v] == -1) {
-            a[v] = a[u] ^ 1;
-            dfs(v, u);
-          } else {
-            flag &= (a[v] ^ a[u]);
-          }
+  }
+}
+
+void dfs(int u) {
+  vis[u] = true;
+  ne.push_back(u);
+  for (int v = 0; v < n; v++) {
+    if (!vis[v] && se.count(dis[u][v])) {
+      dfs(v);
+    }
+  }
+}
+
+
+class JumpDistancesOnTree {
+public:
+  string isPossible(vector<int> p, vector<int> S) {
+    for (int i = 0; i < N; i++) {
+      g[i].clear();
+    }
+    memset(vis, 0, sizeof(vis));
+    se = set<int>(S.begin(), S.end());
+    n = p.size() + 1;
+    for (int i = 0; i < (int)p.size(); i++) {
+      g[p[i]].push_back(i + 1);
+      g[i + 1].push_back(p[i]);
+    }
+    dis = vector<vector<int>>(n);
+    for (int i = 0; i < n; i++) {
+      dis[i] = vector<int>(n, -1);
+      bfs(i, dis[i]);
+    }
+    bool flag = false;
+    ne.clear();
+    dfs(0);
+    set<int> nse;
+    for (auto u : ne) {
+      for (auto v : ne) {
+        if (se.count(dis[u][v])) {
+          nse.insert(dis[u][v]);
         }
       }
-    };
-    int cnt = 0;
-    for (int i = 0; i < n; i++) {
-      if (a[i] == -1) {
-        cnt++;
-        a[i] = 0;
-        dfs(i, -1);
-      }
     }
-    int mod3 = 0;
-    if (flag) {
-      mod3 = 1;
-      for (int i = 0; i < n + cnt; i++) {
-        mod3 = mod3 * 2 % 3;
-      }
+    if (nse == se) {
+      flag = true;
     }
-    for (int i = 0; i < 6; i++) {
-      if (i % 2 == mod2 && i % 3 == mod3) return i;
-    }
-    return 0;
+    return flag ? "Possible" : "Impossible";
   }
 };
 
 // CUT begin
-ifstream data("AcyclicOrientation.sample");
+ifstream data("JumpDistancesOnTree.sample");
 
 string next_line() {
     string s;
@@ -87,10 +114,10 @@ string to_string(string t) {
     return "\"" + t + "\"";
 }
 
-bool do_test(int n, vector<int> u, vector<int> v, int __expected) {
+bool do_test(vector<int> p, vector<int> S, string __expected) {
     time_t startClock = clock();
-    AcyclicOrientation *instance = new AcyclicOrientation();
-    int __result = instance->count(n, u, v);
+    JumpDistancesOnTree *instance = new JumpDistancesOnTree();
+    string __result = instance->isPossible(p, S);
     double elapsed = (double)(clock() - startClock) / CLOCKS_PER_SEC;
     delete instance;
 
@@ -111,14 +138,12 @@ int run_test(bool mainProcess, const set<int> &case_set, const string command) {
     while (true) {
         if (next_line().find("--") != 0)
             break;
-        int n;
-        from_stream(n);
-        vector<int> u;
-        from_stream(u);
-        vector<int> v;
-        from_stream(v);
+        vector<int> p;
+        from_stream(p);
+        vector<int> S;
+        from_stream(S);
         next_line();
-        int __answer;
+        string __answer;
         from_stream(__answer);
 
         cases++;
@@ -126,16 +151,16 @@ int run_test(bool mainProcess, const set<int> &case_set, const string command) {
             continue;
 
         cout << "  Testcase #" << cases - 1 << " ... ";
-        if ( do_test(n, u, v, __answer)) {
+        if ( do_test(p, S, __answer)) {
             passed++;
         }
     }
     if (mainProcess) {
         cout << endl << "Passed : " << passed << "/" << cases << " cases" << endl;
-        int T = time(NULL) - 1507209393;
+        int T = time(NULL) - 1507395090;
         double PT = T / 60.0, TT = 75.0;
         cout << "Time   : " << T / 60 << " minutes " << T % 60 << " secs" << endl;
-        cout << "Score  : " << 800 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT)) << " points" << endl;
+        cout << "Score  : " << 450 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT)) << " points" << endl;
     }
     return 0;
 }
@@ -153,7 +178,7 @@ int main(int argc, char *argv[]) {
         }
     }
     if (mainProcess) {
-        cout << "AcyclicOrientation (800 Points)" << endl << endl;
+        cout << "JumpDistancesOnTree (450 Points)" << endl << endl;
     }
     return run_test(mainProcess, cases, argv[0]);
 }

@@ -2,53 +2,26 @@
 
 using namespace std;
 
-class AcyclicOrientation {
+class Permutiple {
 public:
-  int count(int n, vector<int> u, vector<int> v) {
-    int mod2 = (u.empty() ? 1 : 0);
-    vector<vector<int>> g(n);
-    for (int i = 0; i < u.size(); i++) {
-      g[u[i]].push_back(v[i]);
-      g[v[i]].push_back(u[i]);
-    }
-    vector<int> a(n, -1);
-    bool flag = true;
-    function<void(int, int)> dfs = [&](int u, int fa) {
-      for (auto v : g[u]) {
-        if (v != fa) {
-          if (a[v] == -1) {
-            a[v] = a[u] ^ 1;
-            dfs(v, u);
-          } else {
-            flag &= (a[v] ^ a[u]);
-          }
-        }
+  string isPossible(int x) {
+    string s = to_string(x);
+    sort(s.begin(), s.end());
+    do {
+      int now = 0;
+      for (auto c : s) {
+        now = now * 10 + c - '0';
       }
-    };
-    int cnt = 0;
-    for (int i = 0; i < n; i++) {
-      if (a[i] == -1) {
-        cnt++;
-        a[i] = 0;
-        dfs(i, -1);
+      if (now > x && now % x == 0) {
+        return "Possible";
       }
-    }
-    int mod3 = 0;
-    if (flag) {
-      mod3 = 1;
-      for (int i = 0; i < n + cnt; i++) {
-        mod3 = mod3 * 2 % 3;
-      }
-    }
-    for (int i = 0; i < 6; i++) {
-      if (i % 2 == mod2 && i % 3 == mod3) return i;
-    }
-    return 0;
+    } while (next_permutation(s.begin(), s.end()));
+    return "Impossible";
   }
 };
 
 // CUT begin
-ifstream data("AcyclicOrientation.sample");
+ifstream data("Permutiple.sample");
 
 string next_line() {
     string s;
@@ -65,17 +38,6 @@ void from_stream(string &s) {
     s = next_line();
 }
 
-template <typename T> void from_stream(vector<T> &ts) {
-    int len;
-    from_stream(len);
-    ts.clear();
-    for (int i = 0; i < len; ++i) {
-        T t;
-        from_stream(t);
-        ts.push_back(t);
-    }
-}
-
 template <typename T>
 string to_string(T t) {
     stringstream s;
@@ -87,10 +49,10 @@ string to_string(string t) {
     return "\"" + t + "\"";
 }
 
-bool do_test(int n, vector<int> u, vector<int> v, int __expected) {
+bool do_test(int x, string __expected) {
     time_t startClock = clock();
-    AcyclicOrientation *instance = new AcyclicOrientation();
-    int __result = instance->count(n, u, v);
+    Permutiple *instance = new Permutiple();
+    string __result = instance->isPossible(x);
     double elapsed = (double)(clock() - startClock) / CLOCKS_PER_SEC;
     delete instance;
 
@@ -111,14 +73,10 @@ int run_test(bool mainProcess, const set<int> &case_set, const string command) {
     while (true) {
         if (next_line().find("--") != 0)
             break;
-        int n;
-        from_stream(n);
-        vector<int> u;
-        from_stream(u);
-        vector<int> v;
-        from_stream(v);
+        int x;
+        from_stream(x);
         next_line();
-        int __answer;
+        string __answer;
         from_stream(__answer);
 
         cases++;
@@ -126,16 +84,16 @@ int run_test(bool mainProcess, const set<int> &case_set, const string command) {
             continue;
 
         cout << "  Testcase #" << cases - 1 << " ... ";
-        if ( do_test(n, u, v, __answer)) {
+        if ( do_test(x, __answer)) {
             passed++;
         }
     }
     if (mainProcess) {
         cout << endl << "Passed : " << passed << "/" << cases << " cases" << endl;
-        int T = time(NULL) - 1507209393;
+        int T = time(NULL) - 1498639177;
         double PT = T / 60.0, TT = 75.0;
         cout << "Time   : " << T / 60 << " minutes " << T % 60 << " secs" << endl;
-        cout << "Score  : " << 800 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT)) << " points" << endl;
+        cout << "Score  : " << 250 * (0.3 + (0.7 * TT * TT) / (10.0 * PT * PT + TT * TT)) << " points" << endl;
     }
     return 0;
 }
@@ -153,7 +111,7 @@ int main(int argc, char *argv[]) {
         }
     }
     if (mainProcess) {
-        cout << "AcyclicOrientation (800 Points)" << endl << endl;
+        cout << "Permutiple (250 Points)" << endl << endl;
     }
     return run_test(mainProcess, cases, argv[0]);
 }
