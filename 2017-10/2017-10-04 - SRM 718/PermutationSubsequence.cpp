@@ -4,7 +4,44 @@ using namespace std;
 
 class PermutationSubsequence {
 public:
+  bool dfs(vector<int>& arr, int p, int S, int D) {
+    if (p == arr.size()) return true;
+    auto check = [&]() {
+      for (int j = 0; j < p; j++) {
+        if (p - j + abs(arr[p] - arr[j]) < D) {
+          return false;
+        }
+      }
+      return true;
+    };
+    if (arr[p] == -1) {
+      int n = arr.size();
+      for (int i = 0; i < n; i++) {
+        if (!((1 << i) & S)) {
+          arr[p] = i;
+          if (check() && dfs(arr, p + 1, S ^ (1 << i), D)) return true;
+          arr[p] = -1;
+        }
+      }
+      return false;
+    } else {
+      return check() && dfs(arr, p + 1, S, D);
+    }
+  }
+
   vector<int> findBest(vector<int> arr) {
+    int n = arr.size();
+    int S = 0;
+    for (auto x : arr) {
+      if (x != -1) {
+        S ^= (1 << x);
+      }
+    }
+    for (int i = n; i >= 1; i--) {
+      if (dfs(arr, 0, S, i)) {
+        return arr;
+      }
+    }
     return vector<int>();
   }
 };
