@@ -1,0 +1,27 @@
+-- Example 0
+4
+a**d
+2
+abcd
+acbd
+--
+2
+
+-- Example 1
+5
+lo*er
+2
+lover
+loser
+--
+0
+
+-- Example 2
+3
+a*a
+2
+aaa
+aba
+--
+1
+

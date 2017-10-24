@@ -3,6 +3,7 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
+  vector<int> a;
   int n;
   string s;
   cin >> n >> s;
