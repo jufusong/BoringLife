@@ -1,0 +1,79 @@
+#+SETUPFILE: theme-bigblow-local.setup
+#+TITLE: personal library
+#+DATE: <2017-10-28 Sat>
+#+AUTHOR:
+#+EMAIL: palayutm@gmail.com
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
+#+OPTIONS: e:t email:nil f:t inline:t num:t p:nil pri:nil stat:t
+#+OPTIONS: tags:t tasks:t tex:t timestamp:t toc:t todo:t |:t
+#+CREATOR: Emacs 25.3.1 (Org mode 8.2.10)
+#+DESCRIPTION:
+#+EXCLUDE_TAGS: noexport
+#+KEYWORDS:
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+
+
+* number-theory
+** modular multiplicative inverse
+$ax ≡ 1 (mod\ P)$ , the multiplicative inverse exists *if and only if* $a$ and $P$ are coprime
+*** extended Euclidean algorithm
+#+BEGIN_SRC c++
+  int inverse(int a, int P = mod) {
+    a %= P;
+    if (a < 0) a += P;
+    int b = P, u = 0, v = 1;
+    while (a) {
+      int t = b / a;
+      b -= t * a; swap(a, b);
+      u -= t * v; swap(u, v);
+    }
+    assert(b == 1);
+    if (u < 0) u += P;
+    return u;
+  }
+#+END_SRC
+
+*** Fermat's little theorem
+$P$ must be prime number
+#+BEGIN_SRC c++
+  int inverse(int a, int P = mod) {
+    return a == 1 ? a : (ll)(P - P / a) * inverse(P % a, P) % P;
+  }
+#+END_SRC
+
+*** pre-computation from 1 to n
+$P$ must be prime number
+#+BEGIN_SRC c++
+  vector<int> preInverse(int n, int P = mod) {
+    vector<int> inv(n + 1);
+    inv[1] = 1;
+    for (int i = 2; i <= n; ++i) {
+      inv[i] = (ll)(P - P / i) * inv[P % i] % P;
+    }
+    return inv;
+  }
+#+END_SRC
+
+** prime sieve
+generate primes no more than $n$
+#+BEGIN_SRC c++
+  pair<vector<bool>, vector<int>> primeSieve(int n) {
+    vector<bool> is_prime(n + 1, true);
+    is_prime[0] = is_prime[1] = false;
+    vector<int> prime;
+    for (int i = 2; i <= n; i++) {
+      if (is_prime[i]) {
+        prime.push_back(i);
+      }
+      for (int j = 0; j < prime.size() && i * prime[j] <= n; j++) {
+        is_prime[i * prime[j]] = false;
+        if (i % prime[j] == 0) break;
+      }
+    }
+    return {is_prime, prime};
+  }
+#+END_SRC
+
+
