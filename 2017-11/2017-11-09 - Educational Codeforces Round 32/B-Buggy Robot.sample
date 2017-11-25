@@ -1,0 +1,18 @@
+-- Example 0
+4
+LDUR
+--
+4
+
+-- Example 1
+5
+RRRUU
+--
+0
+
+-- Example 2
+6
+LLRRRR
+--
+4
+
