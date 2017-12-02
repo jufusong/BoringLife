@@ -1,0 +1,14 @@
+-- Example 0
+3 2 5
+abrakadabra
+--
+ab
+rakad
+abra
+
+-- Example 1
+4 1 2
+abrakadabra
+--
+No solution
+
