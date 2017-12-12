@@ -106,48 +106,55 @@ private:
 };
 } // namespace oaht
 
+typedef unsigned long long H;
+static const H C = 123891739;
+
+typedef H K;
+
+struct HashInterval {
+  vector<K> ha, pw;
+  HashInterval(string &str) : ha(str.size() + 1), pw(ha) {
+    pw[0] = 1;
+    for (int i = 0; i < str.size(); ++i) {
+      ha[i + 1] = ha[i] * C + str[i], pw[i + 1] = pw[i] * C;  
+    }
+  }
+  H hashInterval(int a, int b) {
+    return ha[b] - ha[a] * pw[b - a];
+  }
+};
+
+char t[1000005];
+
 int main(int argc, char *argv[]) {
-  int n, q;
-  scanf("%d%d", &n, &q);
-  vector<int> a(n, 0), b(n);
-  for (int i = 0, now = 0; i < n; ++i) {
-    scanf("%d", &a[i]);
-    now ^= a[i];
-    b[i] = now;
+  int BK = 100;
+  scanf("%s", t);
+  string s(t);
+  HashInterval hi(s);
+  oaht::HashMap<K, vector<int>> mp;
+  for (int i = 0; i < s.size(); i++) {
+    for (int j = 1; j <= BK && j <= i + 1; j++) {
+      mp[hi.hashInterval(i - j + 1, i + 1)].push_back(i);
+    }
   }
-  const int BK = 320;
-  vector<int> lazy(350);
-  vector<oaht::HashMap<int, int>> mp(350);
-  for (int i = 0; i < n; i++) {
-    mp[i / BK][b[i]]++;
-  }
-  while (q--) {
-    int tp, p, x;
-    scanf("%d%d%d", &tp, &p, &x);
-    p--;
-    int bk = p / BK;
-    if (tp == 1) {
-      int v = (p > 0 ? (b[p] ^ b[p - 1] ^ lazy[bk] ^ lazy[(p - 1) / BK]) : b[p] ^ lazy[bk]);
-      v ^= x;
-      for (int j = p; j < (bk + 1) * BK && j < n; j++) {
-        mp[bk][b[j]]--;
-        b[j] ^= v;
-        mp[bk][b[j]]++;
+  int Q;
+  scanf("%d", &Q);
+  while (Q--) {
+    int l, r;
+    scanf("%d%d%s", &l, &r, t);
+    string z(t);
+    H key = HashInterval(z).hashInterval(0, z.size());
+    if (z.size() > BK) {
+      int cnt = 0;
+      for (int i = l - 1 + z.size(); i <= r; i++) {
+        cnt += (key == hi.hashInterval(i, i + z.size()));
       }
-      for (int j = bk + 1; j <= (n - 1) / BK; j++) {
-        lazy[j] ^= v;
-      }
+      printf("%d\n", cnt);
     } else {
-      int ans = 0;
-      for (int i = 0; i < bk; i++) {
-        ans += mp[i][lazy[i] ^ x];
-      }
-      for (int i = bk * BK; i <= p; i++) {
-        if ((b[i] ^ lazy[bk]) == x) {
-          ans++;
-        }
-      }
-      printf("%d\n", ans);
+      l = l - 1 + z.size();
+      auto& vec = mp[key];
+      int cnt = upper_bound(vec.begin(), vec.end(), r) - lower_bound(vec.begin(), vec.end(), l);
+      printf("%d\n", cnt);
     }
   }
   return 0;

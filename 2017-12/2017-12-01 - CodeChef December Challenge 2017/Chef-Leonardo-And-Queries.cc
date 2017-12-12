@@ -1,52 +1,5 @@
 #include <bits/stdc++.h>
 
-namespace IO {
-const int MT = 20 * 1024 * 1024; //modify size
-char IO_BUF[MT];
-int IO_PTR, IO_SZ;
-//init
-void begin() {
-  IO_PTR = 0;
-  IO_SZ = fread(IO_BUF, 1, MT, stdin);
-}
-template <typename T> inline bool scan_d(T &t) {
-  while (IO_PTR < IO_SZ && IO_BUF[IO_PTR] != '-' &&
-         (IO_BUF[IO_PTR] < '0' || IO_BUF[IO_PTR] > '9'))
-    IO_PTR++;
-  if (IO_PTR >= IO_SZ)
-    return false;
-  bool sgn = false;
-  if (IO_BUF[IO_PTR] == '-')
-    sgn = true, IO_PTR++;
-  for (t = 0; IO_PTR < IO_SZ && '0' <= IO_BUF[IO_PTR] && IO_BUF[IO_PTR] <= '9';
-       IO_PTR++)
-    t = t * 10 + IO_BUF[IO_PTR] - '0';
-  if (sgn)
-    t = -t;
-  return true;
-}
-inline bool scan_s(char s[]) {
-  while (IO_PTR < IO_SZ && (IO_BUF[IO_PTR] == ' ' || IO_BUF[IO_PTR] == '\n')) IO_PTR++;
-  if (IO_PTR >= IO_SZ) return false;
-  int len = 0;
-  while (IO_PTR < IO_SZ && IO_BUF[IO_PTR] != ' ' && IO_BUF[IO_PTR] != '\n') s[len++] = IO_BUF[IO_PTR], IO_PTR++;
-  s[len] = '\0';
-  return true;
-}
-template <typename T> void print(T x) {
-  static char s[33], *s1;
-  s1 = s;
-  if (!x) *s1++ = '0';
-  if (x < 0) putchar('-'), x = -x;
-  while (x) *s1++ = (x % 10 + '0'), x /= 10;
-  while (s1-- != s) putchar(*s1);
-}
-template <typename T> void println(T x) {
-  print(x);
-  putchar('\n');
-}
-}; // namespace IO
-
 template<class T>
 struct SparseTable {
   std::vector<std::vector<T>> f;
@@ -234,8 +187,8 @@ struct A {
 };
 
 A fw[N];
-map<int, A> son[N];
-vector<pair<int, int>> ff[N];
+A son[N];
+vector<int> ff[N];
 
 vector<vector<int>> g;
 int sz[N], d[N], st[N], root, minn, top;
@@ -243,8 +196,7 @@ bool done[N];
 
 void init(int n) {
   for (int i = 1; i <= n; ++i) {
-    fw[i] = A();
-    son[i].clear();
+    son[i] = fw[i] = A();
     ff[i].clear();
   }
 }
@@ -266,43 +218,38 @@ void dfs1(int u, int fa, int n) {
   }
 }
 
-int solve(int u, int n, int fa) {
+void solve(int u, int n, int fa) {
   minn = inf;
   dfs1(u, -1, n);
   u = root;
   dfs1(u, -1, n);
   if (fa != -1) {
     ff[u] = ff[fa];
-    ff[u].push_back({fa, u});
   }
+  ff[u].push_back(u);
   fw[u].init(n);
+  son[u].init(n);
   done[u] = true;
   for (auto v : g[u]) {
     if (!done[v]) {
-      int dd = sz[v];
-      int rson = solve(v, sz[v], u);
-      son[u][rson].init(dd);
+      solve(v, sz[v], u);
     }
   }
   done[u] = false;
-  return u;
 }
 
 int main(int argc, char *argv[]) {
-  IO::begin();
   init_fib();
   int T;
-  IO::scan_d(T);
+  scanf("%d", &T);
   while (T--) {
     int n, Q;
-    IO::scan_d(n);
-    IO::scan_d(Q);
+    scanf("%d%d", &n, &Q);
     init(n);
     g = vector<vector<int>>(n + 1);
     for (int i = 0; i < n - 1; ++i) {
       int u, v;
-      IO::scan_d(u);
-      IO::scan_d(v);
+      scanf("%d%d", &u, &v);
       g[u].push_back(v);
       g[v].push_back(u);
     }
@@ -310,38 +257,35 @@ int main(int argc, char *argv[]) {
     solve(1, n, -1);
     while (Q--) {
       int tp;
-      IO::scan_d(tp);
+      scanf("%d", &tp);
       if (tp == 1) {
         int u, k, a, b;
-        IO::scan_d(u);
-        IO::scan_d(k);
-        IO::scan_d(a);
-        IO::scan_d(b);
-        fw[u].update(a, b, k);
-        for (auto& e: ff[u]) {
-          int root = e.first, rs = e.second;
+        scanf("%d%d%d%d", &u, &k, &a, &b);
+        for (int i = 0; i < ff[u].size(); i++) {
+          int root = ff[u][i];
           int l1 = lca.query(root, u);
           int d = lca.dep[u] + lca.dep[root] - 2 * lca.dep[l1];
           if (d <= k) {
             int ta = cal_fib(a, b, d);
             int tb = cal_fib(a, b, d + 1);
             fw[root].update(ta, tb, k - d);
-            son[root][rs].update(-ta, -tb, k - d);
+            if (i + 1 < ff[u].size()) {
+              son[ff[u][i + 1]].update(-ta, -tb, k - d);
+            }
           }
         }
       } else {
-        int u;
-        IO::scan_d(u);
-        int a, b;
-        tie(a, b) = fw[u].query(0);
-        int ans = cal_fib(a, b, 0);
-        for (auto& e : ff[u]) {
-          int root = e.first, rs = e.second;
+        int u, ans = 0;
+        scanf("%d", &u);
+        for (int i = 0; i < ff[u].size(); ++i) {
+          int root = ff[u][i];
           int l1 = lca.query(root, u);
           int d = lca.dep[u] + lca.dep[root] - 2 * lca.dep[l1];
-          int ta, tb, xa, xb;
+          int ta, tb, xa = 0, xb = 0;
           tie(ta, tb) = fw[root].query(d);
-          tie(xa, xb) = son[root][rs].query(d);
+          if (i + 1 < ff[u].size()) {
+            tie(xa, xb) = son[ff[u][i + 1]].query(d);
+          }
           ans = (ans + cal_fib(ta + xa, tb + xb, d)) % mod;
         }
         ans = (ans + mod) % mod;
