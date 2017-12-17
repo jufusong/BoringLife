@@ -1,0 +1,31 @@
+-- Example 0
+2
+ivan 1 00123
+masha 1 00123
+--
+2
+masha 1 00123 
+ivan 1 00123 
+
+-- Example 1
+3
+karl 2 612 12
+petr 1 12
+katya 1 612
+--
+3
+katya 1 612 
+petr 1 12 
+karl 1 612 
+
+-- Example 2
+4
+ivan 3 123 123 456
+ivan 2 456 456
+ivan 8 789 3 23 6 56 9 89 2
+dasha 2 23 789
+--
+2
+dasha 2 23 789 
+ivan 4 789 123 2 456 
+

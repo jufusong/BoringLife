@@ -1,0 +1,26 @@
+-- Example 0
+3 4
+abac
+caab
+acba
+--
+acab
+
+-- Example 1
+3 4
+kbbu
+kbub
+ubkb
+--
+kbub
+
+-- Example 2
+5 4
+abcd
+dcba
+acbd
+dbca
+zzzz
+--
+-1
+
