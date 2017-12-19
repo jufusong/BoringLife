@@ -1,0 +1,21 @@
+-- Example 0
+5
+ababa
+00100
+--
+5
+
+-- Example 1
+5
+ababa
+00000
+--
+6
+
+-- Example 2
+5
+ababa
+11111
+--
+0
+
